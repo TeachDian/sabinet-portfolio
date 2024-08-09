@@ -1,0 +1,33 @@
+npm install @testing-library/jest-dom \
+@testing-library/react \
+@testing-library/user-event \
+@types/recharts \
+apexcharts \
+axios \
+chart.js \
+express \
+firebase \
+firebase-admin \
+leaflet \
+nodemailer \
+react \
+react-apexcharts \
+react-big-calendar \
+react-calendar \
+react-chartjs-2 \
+react-dom \
+react-dropzone \
+react-firebase-hooks \
+react-icons \
+react-leaflet \
+react-modal \
+react-router-dom \
+react-scripts \
+react-scroll \
+react-select \
+react-table \
+react-typed \
+recharts \
+socket.io-client \
+sweetalert2 \
+web-vitals
