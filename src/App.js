@@ -69,7 +69,7 @@ function App() {
         {showBootingScreen && (
           <div id="booting-screen">
             <div className="screen-content">
-              <p>BOOTING...</p>
+              <p>NOT YET FINISHED...</p>
             </div>
           </div>
         )}

@@ -74,7 +74,7 @@ const Projects = () => {
                 {
                   name: "Password Generator App",
                   description:
-                    "Password generator web application built with Flask..",
+                    "Password generator web application built with Flask.",
                   link: "https://github.com/TeachDian/Password-Generator",
                 },
                 {
