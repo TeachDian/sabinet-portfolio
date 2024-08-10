@@ -2,7 +2,7 @@
   "name": "sabinet-portfolio",
   "version": "0.1.0",
   "private": true,
- "dependencies": {
+  "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.10.1",
     "@tensorflow-models/mobilenet": "^2.1.1",
     "@tensorflow/tfjs": "^4.20.0",
@@ -26,6 +26,7 @@
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.2.3",
     "react-firebase-hooks": "^5.1.1",
+    "react-howler": "^5.2.0",
     "react-icons": "^5.2.1",
     "react-leaflet": "^4.2.1",
     "react-modal": "^3.16.1",
