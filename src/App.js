@@ -34,7 +34,7 @@ function App() {
 
     setTimeout(() => {
       setShowBootingScreen(false);
-    }, 6200); // 6 seconds duration for booting screen
+    }, 100); // 6 seconds duration for booting screen
   };
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function App() {
     // Set timer to hide booting screen after 6 seconds
     const timer = setTimeout(() => {
       setShowBootingScreen(false);
-    }, 6000); // 6 seconds duration for booting screen
+    }, 100); // 6 seconds duration for booting screen
 
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, []);
@@ -69,7 +69,7 @@ function App() {
         {showBootingScreen && (
           <div id="booting-screen">
             <div className="screen-content">
-              <p>NOT YET FINISHED...</p>
+              <p>LOADING...</p>
             </div>
           </div>
         )}
