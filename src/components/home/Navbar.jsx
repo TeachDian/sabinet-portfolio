@@ -7,6 +7,7 @@ const Navbar = ({ restartBootingAnimation }) => {
   const [hovered, setHovered] = useState(false);
   const [text, setText] = useState("My Portfolio");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavbarHidden, setIsNavbarHidden] = useState(false);
 
   useEffect(() => {
     clickSoundRef.current = new Audio("/click-sound.mp3");
@@ -50,59 +51,143 @@ const Navbar = ({ restartBootingAnimation }) => {
   };
 
   const toggleMenu = () => {
+    playClickSound();
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const hideNavbar = () => {
+    playClickSound();
+    setIsNavbarHidden(true);
+  };
+
+  const showNavbar = () => {
+    playClickSound();
+    setIsNavbarHidden(false);
+  };
+
   return (
-    <nav className="fixed top-0 left-0 w-full bg-black bg-opacity-75 text-gray-300 shadow-lg z-50">
-      <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        {/* Desktop Logo / Title */}
-        <div
-          className="text-lg font-bold cursor-pointer"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          onClick={handleRestartClick}
-        >
-          {text}
+    <>
+      <nav
+        className={`fixed top-0 left-0 w-full bg-black bg-opacity-75 text-gray-300 shadow-lg z-50 transition-transform duration-300 ${
+          isNavbarHidden ? "-translate-y-full" : "translate-y-0"
+        }`}
+      >
+        <div className="container mx-auto flex justify-between items-center py-4 px-6">
+          {/* Desktop Logo / Title */}
+          <div
+            className="text-lg font-bold cursor-pointer"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            onClick={handleRestartClick}
+          >
+            {text}
+          </div>
+
+          {/* Desktop Menu */}
+          <ul className="hidden lg:flex space-x-6">
+            <li>
+              <Link
+                to="/"
+                className="hover:text-white"
+                onMouseEnter={playHoverSound}
+                onClick={playClickSound}
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className="hover:text-white"
+                onMouseEnter={playHoverSound}
+                onClick={playClickSound}
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/projects"
+                className="hover:text-white"
+                onMouseEnter={playHoverSound}
+                onClick={playClickSound}
+              >
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/skills"
+                className="hover:text-white"
+                onMouseEnter={playHoverSound}
+                onClick={playClickSound}
+              >
+                Skills
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                className="hover:text-white"
+                onMouseEnter={playHoverSound}
+                onClick={playClickSound}
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
+
+          {/* Hide Navbar Button */}
+          <button
+            className="fixed top-0 right-0 m-4 text-gray-300 hover:text-white focus:outline-none"
+            onClick={hideNavbar}
+            onMouseEnter={playHoverSound}
+          >
+            ^
+          </button>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
+            <button
+              className="text-gray-300 hover:text-white focus:outline-none"
+              onClick={toggleMenu}
+              onMouseEnter={playHoverSound}
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={
+                    isMenuOpen
+                      ? "M6 18L18 6M6 6l12 12"
+                      : "M4 6h16M4 12h16m-7 6h7"
+                  }
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* Desktop Menu (Unchanged) */}
-        <ul className="hidden lg:flex space-x-6">
-          <li>
-            <Link to="/" className="hover:text-white">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" className="hover:text-white">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link to="/projects" className="hover:text-white">
-              Projects
-            </Link>
-          </li>
-          <li>
-            <Link to="/skills" className="hover:text-white">
-              Skills
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" className="hover:text-white">
-              Contact
-            </Link>
-          </li>
-        </ul>
-
-        {/* Mobile Menu Button */}
-        <div className="lg:hidden">
+        {/* Mobile Menu */}
+        <div
+          className={`absolute top-0 left-0 w-full h-screen bg-black bg-opacity-90 transform ${
+            isMenuOpen ? "translate-x-0" : "-translate-x-full"
+          } transition-transform duration-300 lg:hidden flex flex-col items-center justify-center`}
+        >
+          {/* X Button (Aligned with Navbar) */}
           <button
-            className="text-gray-300 hover:text-white focus:outline-none"
+            className="absolute top-4 right-6 text-gray-300 hover:text-white focus:outline-none"
             onClick={toggleMenu}
+            onMouseEnter={playHoverSound}
           >
             <svg
-              className="w-6 h-6"
+              className="w-8 h-8"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -111,87 +196,93 @@ const Navbar = ({ restartBootingAnimation }) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d={
-                  isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"
-                }
+                d="M6 18L18 6M6 6l12 12"
               />
             </svg>
           </button>
+
+          {/* Mobile Menu Links */}
+          <ul className="space-y-6 text-xl text-white text-center">
+            <li>
+              <Link
+                to="/"
+                className="hover:text-gray-400"
+                onMouseEnter={playHoverSound}
+                onClick={() => {
+                  playClickSound();
+                  toggleMenu();
+                }}
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className="hover:text-gray-400"
+                onMouseEnter={playHoverSound}
+                onClick={() => {
+                  playClickSound();
+                  toggleMenu();
+                }}
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/projects"
+                className="hover:text-gray-400"
+                onMouseEnter={playHoverSound}
+                onClick={() => {
+                  playClickSound();
+                  toggleMenu();
+                }}
+              >
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/skills"
+                className="hover:text-gray-400"
+                onMouseEnter={playHoverSound}
+                onClick={() => {
+                  playClickSound();
+                  toggleMenu();
+                }}
+              >
+                Skills
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                className="hover:text-gray-400"
+                onMouseEnter={playHoverSound}
+                onClick={() => {
+                  playClickSound();
+                  toggleMenu();
+                }}
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Menu (Full-Screen with X Button) */}
-      <div
-        className={`absolute top-0 left-0 w-full h-screen bg-black bg-opacity-90 transform ${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:hidden flex flex-col items-center justify-center`}
-      >
-        {/* X Button (Aligned with Navbar) */}
+      {/* Show Navbar Button */}
+      {isNavbarHidden && (
         <button
-          className="absolute top-4 right-6 text-gray-300 hover:text-white focus:outline-none"
-          onClick={toggleMenu}
+          className="fixed top-0 right-0 m-4 text-gray-300 hover:text-white focus:outline-none"
+          onClick={showNavbar}
+          onMouseEnter={playHoverSound}
         >
-          <svg
-            className="w-8 h-8"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          v
         </button>
-
-        {/* Mobile Menu Links (Centered) */}
-        <ul className="space-y-6 text-xl text-white text-center">
-          <li>
-            <Link to="/" className="hover:text-gray-400" onClick={toggleMenu}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/about"
-              className="hover:text-gray-400"
-              onClick={toggleMenu}
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/projects"
-              className="hover:text-gray-400"
-              onClick={toggleMenu}
-            >
-              Projects
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/skills"
-              className="hover:text-gray-400"
-              onClick={toggleMenu}
-            >
-              Skills
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/contact"
-              className="hover:text-gray-400"
-              onClick={toggleMenu}
-            >
-              Contact
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      )}
+    </>
   );
 };
 
